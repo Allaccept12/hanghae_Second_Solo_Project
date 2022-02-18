@@ -29,11 +29,11 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
         if (validator(dto))
             return Optional.empty();
 
-        return Optional.ofNullable(queryFactory
+        return Optional.ofNullable(
+                queryFactory
                 .select(account)
                 .from(account)
                 .leftJoin(account.likesList, likes).fetchJoin()
-                .where(userEmailEq(dto.getEmail()),userPasswordEq(dto.getPassword()))
                 .fetch());
     }
 
@@ -41,13 +41,13 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
         return dto.getEmail().isEmpty() || dto.getPassword().isEmpty();
     }
 
-        private BooleanExpression userPasswordEq(String password) {
-        return hasText(password) ? account.password.eq(password) : null;
-    }
-
-    private BooleanExpression userEmailEq(String userEmail) {
-        return hasText(userEmail) ? account.email.eq(userEmail) : null;
-    }
+//    private BooleanExpression userPasswordEq(String password) {
+//        return hasText(password) ? account.password.eq(password) : null;
+//    }
+//
+//    private BooleanExpression userEmailEq(String userEmail) {
+//        return hasText(userEmail) ? account.email.eq(userEmail) : null;
+//    }
 
 }
 

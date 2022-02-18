@@ -9,5 +9,11 @@ import lombok.NoArgsConstructor;
 public class AccountRequestDto {
 
     private String email;
+
     private String password;
+
+    public AccountRequestDto(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }
