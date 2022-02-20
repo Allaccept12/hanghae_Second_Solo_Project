@@ -27,12 +27,11 @@ public class LikesRepositoryImpl implements LikesRepositoryCustom{
 
     @Override
     public List<Long> getBoardLikeCount(List<Board> boardList) {
-        return null;
-//        return queryFactory
-//                .
-//                .from(likes)
-//                .where(likes.board.in(boardList))
-//                .fetch();
+        return queryFactory
+                .select(likes.id)
+                .from(likes)
+                .where(likes.board.in(boardList))
+                .fetch();
     }
 
 }

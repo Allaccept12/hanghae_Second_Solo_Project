@@ -91,7 +91,7 @@ class AccountRepositoryImplTest {
     public void 로그인_테스트() throws Exception {
 //        //given
         AccountLoginResponseDto accountLoginResponseDto = accountRepository.
-                login(AccountLoginRequestDto.builder().email("ekdmd90921").password("12341").username("다응짱2").build());
+                login(AccountLoginRequestDto.builder().email("ekdmd90921").password("12341").build());
 
         for (Long aLong : accountLoginResponseDto.getBoard_id()) {
             System.out.println("aLong = " + aLong);

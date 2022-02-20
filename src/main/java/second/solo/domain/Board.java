@@ -36,6 +36,9 @@ public class Board{
     @LastModifiedDate
     private LocalDateTime modified;
 
+    @Column(columnDefinition = "integer default 0")
+    private int likeCount;
+
     @Builder
     public Board(String content, Account account) {
         this.content = content;

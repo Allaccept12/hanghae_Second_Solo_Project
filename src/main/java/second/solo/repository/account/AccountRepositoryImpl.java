@@ -13,6 +13,7 @@ import second.solo.dto.response.AccountLoginResponseDto;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.util.StringUtils.hasText;
@@ -30,7 +31,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
                 .select(account, likes)
                 .from(account)
                 .leftJoin(likes).on(account.id.eq(likes.account.id))
-                .where(Objects.requireNonNull(userPasswordEq(dto.getPassword())).and(userEmailEq(dto.getEmail())))
+                .where(userEmailEq(dto.getEmail()))
                 .fetch();
 
         List<Likes> likesList = result.stream()
@@ -43,7 +44,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
                 .findFirst()
                 .get();
 
-        return AccountLoginResponseDto.of(likesList,accountInfo);
+        return AccountLoginResponseDto.of(likesList, accountInfo);
 
     }
     private BooleanExpression userPasswordEq(String password) {

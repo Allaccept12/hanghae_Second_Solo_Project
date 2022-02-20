@@ -25,5 +25,12 @@ spring:
         default_batch_fetch_size: 100
         use_sql_comment: true
 
+jwt:
+  header: Authorization
+  #hs256 알고리즘 32비트 이상의 시크릿키 사용
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
+
+
 logging.level:
   org.hibernate.SQL: debug

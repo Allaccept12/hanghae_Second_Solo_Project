@@ -18,6 +18,10 @@ public class AccountRegisterRequestDto {
 
     private String username;
 
+    public void encodedPassword(String password) {
+        this.password = password;
+    }
+
     public static Account toEntity(AccountRegisterRequestDto dto) {
         return Account.builder()
                 .email(dto.getEmail())

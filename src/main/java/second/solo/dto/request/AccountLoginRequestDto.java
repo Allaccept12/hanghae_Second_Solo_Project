@@ -11,17 +11,13 @@ import second.solo.domain.Account;
 @NoArgsConstructor
 @Getter
 public class AccountLoginRequestDto {
-
     private String email;
 
     private String password;
 
-    private String username;
-
     @Builder
-    public AccountLoginRequestDto(String email, String password, String username) {
+    public AccountLoginRequestDto(String email, String password) {
         this.email = email;
         this.password = password;
-        this.username = username;
     }
 }
