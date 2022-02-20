@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "BOARD_TAB")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Board{
+public class Board extends TimeStamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +30,6 @@ public class Board{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @CreatedDate
-    private LocalDateTime created;
-
-    @LastModifiedDate
-    private LocalDateTime modified;
-
     @Column(columnDefinition = "integer default 0")
     private int likeCount;
 
@@ -47,5 +41,12 @@ public class Board{
 
     public void updateContent(String content) {
         this.content = content;
+    }
+
+    public void upLikes() {
+        this.likeCount += 1;
+    }
+    public void downLikes() {
+        this.likeCount -= 1;
     }
 }
