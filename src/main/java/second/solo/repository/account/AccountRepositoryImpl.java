@@ -1,19 +1,19 @@
 package second.solo.repository.account;
 
 
-import com.querydsl.core.types.Predicate;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import second.solo.domain.Account;
-import second.solo.domain.QAccount;
-import second.solo.domain.QLikes;
-import second.solo.dto.AccountRequestDto;
-import second.solo.dto.AccountResponseDto;
+import second.solo.domain.Likes;
+import second.solo.dto.request.AccountLoginRequestDto;
+import second.solo.dto.response.AccountLoginResponseDto;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.springframework.util.StringUtils.hasText;
 import static second.solo.domain.QAccount.*;
@@ -25,29 +25,34 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<List<Account>> login(AccountRequestDto dto) {
-        if (validator(dto))
-            return Optional.empty();
-
-        return Optional.ofNullable(
-                queryFactory
-                .select(account)
+    public AccountLoginResponseDto login(AccountLoginRequestDto dto) {
+        List<Tuple> result = queryFactory
+                .select(account, likes)
                 .from(account)
-                .leftJoin(account.likesList, likes).fetchJoin()
-                .fetch());
+                .leftJoin(likes).on(account.id.eq(likes.account.id))
+                .where(Objects.requireNonNull(userPasswordEq(dto.getPassword())).and(userEmailEq(dto.getEmail())))
+                .fetch();
+
+        List<Likes> likesList = result.stream()
+                .map(r -> r.get(likes))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        Account accountInfo = result.stream()
+                .map(r -> r.get(account))
+                .findFirst()
+                .get();
+
+        return AccountLoginResponseDto.of(likesList,accountInfo);
+
+    }
+    private BooleanExpression userPasswordEq(String password) {
+        return hasText(password) ? account.password.eq(password) : null;
     }
 
-    private boolean validator(AccountRequestDto dto) {
-        return dto.getEmail().isEmpty() || dto.getPassword().isEmpty();
+    private BooleanExpression userEmailEq(String userEmail) {
+        return hasText(userEmail) ? account.email.eq(userEmail) : null;
     }
-
-//    private BooleanExpression userPasswordEq(String password) {
-//        return hasText(password) ? account.password.eq(password) : null;
-//    }
-//
-//    private BooleanExpression userEmailEq(String userEmail) {
-//        return hasText(userEmail) ? account.email.eq(userEmail) : null;
-//    }
 
 }
 

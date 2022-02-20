@@ -30,15 +30,6 @@ public class Likes {
     public Likes(Account account, Board board) {
         this.account = account;
         this.board = board;
-        account.getLikesList().add(this);
     }
 
-    public void likeBoard() {
-        board.addLike();
-    }
-
-    public void unLikeBoard() {
-        account.getLikesList().remove(this);
-        board.subLike();
-    }
 }

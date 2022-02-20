@@ -1,12 +1,9 @@
 package second.solo.repository.account;
 
-import second.solo.domain.Account;
-import second.solo.dto.AccountRequestDto;
-
-import java.util.List;
-import java.util.Optional;
+import second.solo.dto.request.AccountLoginRequestDto;
+import second.solo.dto.response.AccountLoginResponseDto;
 
 public interface AccountRepositoryCustom {
 
-    Optional<List<Account>> login(AccountRequestDto accountRequestDto);
+    AccountLoginResponseDto login(AccountLoginRequestDto accountRequestDto);
 }

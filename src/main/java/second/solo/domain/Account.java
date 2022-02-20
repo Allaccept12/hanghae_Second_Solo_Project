@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Table(name = "ACCOUNT_TAB")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Account {
+public class Account extends TimeStamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,6 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "account")
-    private List<Likes> likesList;
 
     @Builder
     public Account(String email, String username, String password) {

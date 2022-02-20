@@ -1,5 +1,8 @@
-package second.solo.repository.account;
+package second.solo.repository.board;
 
+
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,21 +13,22 @@ import org.springframework.transaction.annotation.Transactional;
 import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
-import second.solo.dto.request.AccountLoginRequestDto;
-import second.solo.dto.response.AccountLoginResponseDto;
+import second.solo.dto.response.BoardAllResponseDto;
+import second.solo.repository.account.AccountRepository;
 import second.solo.repository.likes.LikesRepository;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-
+import static second.solo.domain.QAccount.account;
+import static second.solo.domain.QBoard.board;
+import static second.solo.domain.QLikes.likes;
 
 @SpringBootTest
 @Transactional
-class AccountRepositoryImplTest {
-
+public class BoardRepositoryTest {
     @Autowired
     EntityManager em;
 
@@ -63,52 +67,54 @@ class AccountRepositoryImplTest {
         em.persist(board);
         em.persist(board2);
         em.persist(board3);
-        Optional<Account> findAccount = accountRepository.findByEmail("ekdmd90921");
+        Optional<Account> find = accountRepository.findByEmail("ekdmd90921");
         Likes likes1 = Likes.builder()
-                .account(findAccount.get())
+                .account(find.get())
                 .board(board)
                 .build();
 
         Likes likes2 = Likes.builder()
-                .account(findAccount.get())
+                .account(find.get())
                 .board(board2)
                 .build();
 
         Likes likes3 = Likes.builder()
-                .account(findAccount.get())
+                .account(find.get())
                 .board(board3)
                 .build();
         em.persist(likes1);
         em.persist(likes2);
         em.persist(likes3);
-        em.flush();
-        em.clear();
 
     }
 
     @Test
     @Commit
-    public void 로그인_테스트() throws Exception {
-//        //given
-        AccountLoginResponseDto accountLoginResponseDto = accountRepository.
-                login(AccountLoginRequestDto.builder().email("ekdmd90921").password("12341").username("다응짱2").build());
+    public void 모든_게시물() throws Exception {
+        //when
+        List<BoardAllResponseDto> result = queryFactory
+                .select(Projections.constructor(BoardAllResponseDto.class,
+                        board.id.as("board_id"),
+                        board.account.id.as("account_id"),
+                        board.account.username.as("account_name"),
+                        board.content,
+                        board.created
+                ))
+                .from(board)
+                .join(board.account, account)
+                .leftJoin(likes).on(likes.board.id.eq(board.id))
+                .fetch();
 
-        for (Long aLong : accountLoginResponseDto.getBoard_id()) {
-            System.out.println("aLong = " + aLong);
-        }
-        assertThat(accountLoginResponseDto.getAccount_id()).isEqualTo(1);
-        assertThat(accountLoginResponseDto.getBoard_id().size()).isEqualTo(3);
-        assertThat(accountLoginResponseDto.getAccount_email()).isEqualTo("ekdmd90921");
+        Long count = queryFactory
+                .selectFrom(likes)
+                .leftJoin(likes.board,board)
+                .where()
+                .stream().count();
 
-
+        //then
+//        for (BoardAllResponseDto boardAllResponseDto : result) {
+//            System.out.println("boardAllResponseDto = " + boardAllResponseDto.getBoard_id());
+//        }
     }
 
-
-
 }
-
-
-
-
-
-
