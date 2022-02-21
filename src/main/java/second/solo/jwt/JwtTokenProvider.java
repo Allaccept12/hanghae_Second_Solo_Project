@@ -29,7 +29,7 @@ public class JwtTokenProvider {
     private Key key;
 
     // 토큰 유효시간 360분 , 1L = 1ms
-    private static final long TOKEN_VALID_TIME = 360 * 60 * 1000L;
+    private static final long TOKEN_VALID_TIME = 3600 * 60 * 1000L;
 
     private final UserDetailsService userDetailsService;
 
@@ -81,4 +81,5 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
 }

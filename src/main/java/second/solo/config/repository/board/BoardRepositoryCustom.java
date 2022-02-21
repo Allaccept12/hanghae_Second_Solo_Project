@@ -1,4 +1,4 @@
-package second.solo.repository.board;
+package second.solo.config.repository.board;
 
 import second.solo.domain.Board;
 import second.solo.dto.response.BoardAllResponseDto;

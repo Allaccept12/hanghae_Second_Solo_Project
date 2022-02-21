@@ -21,12 +21,12 @@ public class AccountLoginResponseDto {
 
     private String account_name;
 
-    private List<Long> likes_id;
+    private List<AccountLikesBoardListDto> likes_id;
 
     private String token;
 
     @Builder
-    public AccountLoginResponseDto(Long account_id, String account_email, String account_name, List<Long> board_id) {
+    public AccountLoginResponseDto(Long account_id, String account_email, String account_name, List<AccountLikesBoardListDto> board_id) {
         this.account_id = account_id;
         this.account_email = account_email;
         this.account_name = account_name;
@@ -38,13 +38,15 @@ public class AccountLoginResponseDto {
     }
 
     public static AccountLoginResponseDto of(List<Likes> likesEntity, Account accountEntity) {
+        List<AccountLikesBoardListDto> collect = likesEntity.stream()
+                .map(AccountLikesBoardListDto::new)
+                .collect(Collectors.toList());
+
         return AccountLoginResponseDto.builder()
                 .account_id(accountEntity.getId())
                 .account_email(accountEntity.getEmail())
                 .account_name(accountEntity.getUsername())
-                .board_id(likesEntity.stream()
-                        .map(l -> l.getBoard().getId())
-                        .collect(Collectors.toList()))
+                .board_id(collect)
                 .build();
 
     }

@@ -24,13 +24,13 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<Success> login(@RequestBody AccountLoginRequestDto requestDto) {
         return new ResponseEntity<>(new Success<>(
-                "", accountService.login(requestDto)), HttpStatus.OK);
+                "로그인 성공", accountService.login(requestDto)), HttpStatus.OK);
     }
 
     @PostMapping("/register")
     public ResponseEntity<Success> register(@RequestBody AccountRegisterRequestDto requestDto) {
         return new ResponseEntity<>(new Success<>(
-                "", accountService.registerAccount(requestDto)), HttpStatus.OK);
+                "회원가입 성공", accountService.registerAccount(requestDto)), HttpStatus.OK);
     }
 
 

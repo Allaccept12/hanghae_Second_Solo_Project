@@ -2,7 +2,6 @@ package second.solo.repository.board;
 
 
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +13,8 @@ import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
 import second.solo.dto.response.BoardAllResponseDto;
-import second.solo.repository.account.AccountRepository;
-import second.solo.repository.likes.LikesRepository;
+import second.solo.config.repository.account.AccountRepository;
+import second.solo.config.repository.likes.LikesRepository;
 
 import javax.persistence.EntityManager;
 

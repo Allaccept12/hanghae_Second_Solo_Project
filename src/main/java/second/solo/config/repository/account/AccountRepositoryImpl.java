@@ -1,4 +1,4 @@
-package second.solo.repository.account;
+package second.solo.config.repository.account;
 
 
 import com.querydsl.core.Tuple;
@@ -13,7 +13,6 @@ import second.solo.dto.response.AccountLoginResponseDto;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.util.StringUtils.hasText;

@@ -1,4 +1,4 @@
-package second.solo.repository.account;
+package second.solo.config.repository.account;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

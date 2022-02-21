@@ -33,6 +33,12 @@ public class Board extends TimeStamped{
     @Column(columnDefinition = "integer default 0")
     private int likeCount;
 
+    @CreatedDate
+    private LocalDateTime created;
+
+    @LastModifiedDate
+    private LocalDateTime modified;
+
     @Builder
     public Board(String content, Account account) {
         this.content = content;

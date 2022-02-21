@@ -16,9 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
-import second.solo.jwt.JwtAccessDeniedHandler;
 import second.solo.jwt.JwtAuthenticationEntryPoint;
-import second.solo.jwt.JwtAuthenticationFilter;
 import second.solo.jwt.JwtTokenProvider;
 
 @Configuration
@@ -28,8 +26,7 @@ import second.solo.jwt.JwtTokenProvider;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider tokenProvider;
     private final CorsFilter corsFilter;
-//    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-//    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -47,12 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
-//                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                    .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // enable h2-console
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
-                    .headers()
+                .headers()
                     .frameOptions().disable()
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
                 .and()
@@ -60,9 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()// 로그인과 회원가입은 열어줌
+                    .antMatchers(HttpMethod.GET,"/api/board").permitAll()
                     .antMatchers("/api/login").permitAll()
                     .antMatchers("/api/register").permitAll()
-                    .antMatchers("api/board").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

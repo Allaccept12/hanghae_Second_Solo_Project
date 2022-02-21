@@ -23,7 +23,7 @@ public class BoardAllResponseDto {
     private LocalDateTime time;
 
     @Builder
-    public BoardAllResponseDto(Long board_id, Long account_id, String account_name, String content, LocalDateTime time,int like) {
+    public BoardAllResponseDto(Long board_id, Long account_id, String account_name, String content,LocalDateTime time ,int like) {
         this.board_id = board_id;
         this.account_id = account_id;
         this.account_name = account_name;

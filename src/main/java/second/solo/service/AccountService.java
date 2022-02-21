@@ -12,7 +12,7 @@ import second.solo.dto.request.AccountRegisterRequestDto;
 import second.solo.dto.request.AccountLoginRequestDto;
 import second.solo.dto.response.AccountLoginResponseDto;
 import second.solo.jwt.JwtTokenProvider;
-import second.solo.repository.account.AccountRepository;
+import second.solo.config.repository.account.AccountRepository;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
