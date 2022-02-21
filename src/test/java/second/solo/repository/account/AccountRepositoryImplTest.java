@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
-import second.solo.config.repository.account.AccountRepository;
 import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
 import second.solo.dto.request.AccountLoginRequestDto;
 import second.solo.dto.response.AccountLoginResponseDto;
-import second.solo.config.repository.likes.LikesRepository;
+import second.solo.repository.likes.LikesRepository;
 
 import javax.persistence.EntityManager;
 

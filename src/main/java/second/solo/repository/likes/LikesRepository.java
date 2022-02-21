@@ -1,4 +1,4 @@
-package second.solo.config.repository.likes;
+package second.solo.repository.likes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import second.solo.domain.Likes;

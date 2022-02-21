@@ -12,8 +12,8 @@ import second.solo.dto.request.BoardCreateRequestDto;
 import second.solo.dto.request.BoardUpdateRequestDto;
 import second.solo.dto.response.BoardAllResponseDto;
 import second.solo.dto.response.CreatedBoardIdDto;
-import second.solo.config.repository.account.AccountRepository;
-import second.solo.config.repository.board.BoardRepository;
+import second.solo.repository.account.AccountRepository;
+import second.solo.repository.board.BoardRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

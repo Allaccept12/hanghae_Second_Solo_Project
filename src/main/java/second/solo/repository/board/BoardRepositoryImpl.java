@@ -1,4 +1,4 @@
-package second.solo.config.repository.board;
+package second.solo.repository.board;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import second.solo.advice.ApiRequestException;
 import second.solo.domain.Account;
-import second.solo.config.repository.account.AccountRepository;
+import second.solo.repository.account.AccountRepository;
 
 @Service
 @Slf4j

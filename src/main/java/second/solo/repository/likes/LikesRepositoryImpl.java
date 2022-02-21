@@ -1,4 +1,4 @@
-package second.solo.config.repository.likes;
+package second.solo.repository.likes;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

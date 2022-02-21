@@ -9,9 +9,9 @@ import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
 import second.solo.dto.response.BoardLikeCountResponseDto;
-import second.solo.config.repository.account.AccountRepository;
-import second.solo.config.repository.board.BoardRepository;
-import second.solo.config.repository.likes.LikesRepository;
+import second.solo.repository.account.AccountRepository;
+import second.solo.repository.board.BoardRepository;
+import second.solo.repository.likes.LikesRepository;
 
 import java.util.List;
 

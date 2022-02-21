@@ -1,4 +1,4 @@
-package second.solo.config.repository.likes;
+package second.solo.repository.likes;
 
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
