@@ -9,10 +9,10 @@
 - Java 8
 
 - SpringBoot
-- Spring Security
+- Spring Security 
 - Gradle
 - JPA
-- QueryDSL
+- QueryDSL - 안써도 되지만 연습
 - MySQL 8.0
 
 ## CORS 해결하기
