@@ -23,7 +23,7 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
-        use_sql_comment: true
+#        use_sql_comment: true
 
 jwt:
   header: Authorization

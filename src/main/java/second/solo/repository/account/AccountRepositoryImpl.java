@@ -29,7 +29,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom{
         List<Tuple> result = queryFactory
                 .select(account, likes)
                 .from(account)
-                .leftJoin(likes).on(account.id.eq(likes.account.id))
+                .leftJoin(likes).on(account.id.eq(likes.account.id)).fetchJoin()
                 .where(userEmailEq(dto.getEmail()))
                 .fetch();
 
