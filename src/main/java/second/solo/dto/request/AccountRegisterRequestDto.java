@@ -18,6 +18,14 @@ public class AccountRegisterRequestDto {
 
     private String username;
 
+    @Builder
+    public AccountRegisterRequestDto(String email, String password, String passwordCheck, String username) {
+        this.email = email;
+        this.password = password;
+        this.passwordCheck = passwordCheck;
+        this.username = username;
+    }
+
     public void encodedPassword(String password) {
         this.password = password;
     }

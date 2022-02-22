@@ -26,8 +26,6 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    private final AccountRepository accountRepository;
-
     @Transactional(readOnly = true)
     public List<BoardAllResponseDto> allBoardSearch() {
         List<Board> boardList = boardRepository.findAllBoard();
