@@ -32,5 +32,4 @@ jwt:
   token-validity-in-seconds: 86400
 
 
-logging.level:
-  org.hibernate.SQL: debug
+

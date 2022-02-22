@@ -36,11 +36,6 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-//    @Transactional(readOnly = true)
-//    public BoardDetailResponseDto boardDetail(Long boardId) {
-//        boar
-//    }
-
     public CreatedBoardIdDto createBoard(BoardCreateRequestDto dto, Account account) {
         return new CreatedBoardIdDto(boardRepository.save(BoardCreateRequestDto.toEntity(dto,account)).getId());
     }
