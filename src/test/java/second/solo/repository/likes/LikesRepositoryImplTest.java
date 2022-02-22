@@ -1,37 +1,33 @@
-package second.solo.repository.account;
+package second.solo.repository.likes;
 
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
-import second.solo.dto.request.AccountLoginRequestDto;
-import second.solo.dto.response.AccountLoginResponseDto;
-import second.solo.repository.likes.LikesRepository;
+import second.solo.repository.account.AccountRepository;
+import second.solo.repository.board.BoardRepository;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.springframework.util.StringUtils.hasText;
+import static org.junit.jupiter.api.Assertions.*;
 import static second.solo.domain.QAccount.account;
+import static second.solo.domain.QBoard.board;
 import static second.solo.domain.QLikes.likes;
 
 
 @SpringBootTest
 @Transactional
-class AccountRepositoryImplTest {
+class LikesRepositoryImplTest {
+
 
     @Autowired
     EntityManager em;
@@ -41,6 +37,9 @@ class AccountRepositoryImplTest {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    BoardRepository boardRepository;
 
     @Autowired
     LikesRepository likesRepository;
@@ -95,53 +94,20 @@ class AccountRepositoryImplTest {
     }
 
     @Test
-    public void 이메일로_찾기() throws Exception {
+    public void 좋아요_해지() throws Exception {
         //when
         Optional<Account> findAccount = accountRepository.findByEmail("ekdmd9092");
+        Optional<Board> findBoard = boardRepository.findById(2L);
+
+        Likes findLike = queryFactory
+                .selectFrom(likes)
+                .join(likes.account, account).on(likes.account.id.eq(findAccount.get().getId()))
+                .join(likes.board, board).on(likes.board.id.eq(findBoard.get().getId()))
+                .fetchOne();
         //then
-        assertThat(findAccount.get().getEmail()).isEqualTo("ekdmd9092");
-        assertThat(findAccount.get().getPassword()).isEqualTo("1234");
-        assertThat(findAccount.get().getUsername()).isEqualTo("다응짱");
+        assertThat(findLike.getAccount().getId()).isEqualTo(findAccount.get().getId());
+        assertThat(findLike.getBoard().getId()).isEqualTo(findBoard.get().getId());
     }
-
-
-    @Test
-    public void 로그인_테스트() throws Exception {
-        //given
-        List<Tuple> result = queryFactory
-                .select(account, likes)
-                .from(account)
-                .leftJoin(likes).on(account.id.eq(likes.account.id)).fetchJoin()
-                .where(userEmailEq("ekdmd9092"))
-                .fetch();
-
-        List<Likes> likesList = result.stream()
-                .map(r -> r.get(likes))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        Account accountInfo = result.stream()
-                .map(r -> r.get(account))
-                .findFirst()
-                .get();
-
-        assertThat(likesList.size()).isEqualTo(3);
-        assertThat(accountInfo.getEmail()).isEqualTo("ekdmd9092");
-        assertThat(accountInfo.getPassword()).isEqualTo("1234");
-        assertThat(accountInfo.getUsername()).isEqualTo("다응짱");
-
-    }
-
-    private BooleanExpression userEmailEq(String userEmail) {
-        return hasText(userEmail) ? account.email.eq(userEmail) : null;
-    }
-
 
 
 }
-
-
-
-
-
-

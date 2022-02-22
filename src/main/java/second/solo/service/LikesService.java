@@ -21,7 +21,6 @@ import java.util.List;
 public class LikesService {
 
     private final LikesRepository likesRepository;
-    private final AccountRepository accountRepository;
     private final BoardRepository boardRepository;
 
     public BoardLikeCountResponseDto likeBoard(Long boardId, Account account) {
@@ -34,6 +33,7 @@ public class LikesService {
         return new BoardLikeCountResponseDto(findBoard.getLikeCount());
     }
 
+    //이 부분은 개선이 필요함..board likeCount 부분이랑 이어지는 부분
     public BoardLikeCountResponseDto unLikeBoard(Long boardId, Long accountId) {
         Board findBoard = boardRepository.findById(boardId).orElseThrow(() -> new ApiRequestException("게시글이 존재하지 않습니다."));
         List<Likes> likeByAccountWithBoard = likesRepository.findLikeByAccountWithBoard(accountId, findBoard.getId())

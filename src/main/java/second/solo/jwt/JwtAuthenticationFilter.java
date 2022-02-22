@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                 (((HttpServletRequest) request).getMethod().equals("POST") &&
                         (((HttpServletRequest) request).getRequestURI().equals("/api/login")) ||
                         (((HttpServletRequest) request).getRequestURI().equals("/api/register")))) {
-            chain.doFilter(request, response);
+            chain.doFilter(request, response );
         } else {
             JSONObject jsonObject = new JSONObject(); // 중괄호에 들어갈 속성 정의 { "a" : "1", "b" : "2" }
             try {
