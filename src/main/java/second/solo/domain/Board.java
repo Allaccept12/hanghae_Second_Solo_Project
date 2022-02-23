@@ -33,10 +33,19 @@ public class Board extends TimeStamped{
     @Column(columnDefinition = "integer default 0")
     private int likeCount;
 
+    @Lob
+    private String imgUrl;
+
+    private String boardStatus;
+
+
+
     @Builder
-    public Board(String content, Account account) {
+    public Board(String content, Account account, String imgUrl, String boardStatus) {
         this.content = content;
         this.account = account;
+        this.imgUrl = imgUrl;
+        this.boardStatus = boardStatus;
     }
 
     public void updateContent(String content) {

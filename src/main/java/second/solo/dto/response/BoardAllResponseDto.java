@@ -22,14 +22,20 @@ public class BoardAllResponseDto {
 
     private LocalDateTime time;
 
+    private String img_url;
+
+    private String board_status;
+
     @Builder
-    public BoardAllResponseDto(Long board_id, Long account_id, String account_name, String content,LocalDateTime time ,int like) {
+    public BoardAllResponseDto(Long board_id, Long account_id, String account_name, String content,LocalDateTime time ,String img_url, String board_status,int like) {
         this.board_id = board_id;
         this.account_id = account_id;
         this.account_name = account_name;
         this.content = content;
         this.like = like;
         this.time = time;
+        this.img_url = img_url;
+        this.board_status = board_status;
     }
 
     public static BoardAllResponseDto of(Board entity, int likes) {
@@ -41,6 +47,8 @@ public class BoardAllResponseDto {
                 .content(entity.getContent())
                 .like(likes)
                 .time(entity.getModified())
+                .board_status(entity.getBoardStatus())
+                .img_url(entity.getImgUrl())
                 .build();
     }
 }
