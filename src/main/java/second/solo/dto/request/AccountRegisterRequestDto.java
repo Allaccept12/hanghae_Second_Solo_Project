@@ -10,20 +10,20 @@ import second.solo.domain.Account;
 @NoArgsConstructor
 public class AccountRegisterRequestDto {
 
-    private String email;
+    private String account_email;
 
     private String password;
 
-    private String passwordCheck;
+    private String password_check;
 
-    private String username;
+    private String account_name;
 
     @Builder
     public AccountRegisterRequestDto(String email, String password, String passwordCheck, String username) {
-        this.email = email;
+        this.account_email = email;
         this.password = password;
-        this.passwordCheck = passwordCheck;
-        this.username = username;
+        this.password_check = passwordCheck;
+        this.account_name = username;
     }
 
     public void encodedPassword(String password) {
@@ -32,9 +32,9 @@ public class AccountRegisterRequestDto {
 
     public static Account toEntity(AccountRegisterRequestDto dto) {
         return Account.builder()
-                .email(dto.getEmail())
+                .email(dto.getAccount_email())
                 .password(dto.getPassword())
-                .username(dto.getUsername())
+                .username(dto.getAccount_name())
                 .build();
     }
 }

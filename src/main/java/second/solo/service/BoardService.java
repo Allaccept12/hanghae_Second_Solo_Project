@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 @Slf4j
 public class BoardService {
 
@@ -33,15 +32,17 @@ public class BoardService {
                 .map(b -> BoardAllResponseDto.of(b,b.getLikeCount()))
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     public CreatedBoardIdDto createBoard(BoardCreateRequestDto dto, Account account) {
         return new CreatedBoardIdDto(boardRepository.save(BoardCreateRequestDto.toEntity(dto,account)).getId());
     }
 
+    @Transactional
     public void deleteBoard(Long boardId, Long accountId) {
         boardRepository.delete(boardValidation(boardId, accountId));
     }
 
+    @Transactional
     public Long updateBoard(Long boardId, Long accountId, BoardUpdateRequestDto dto) {
         Board findBoard = boardValidation(boardId, accountId);
         findBoard.updateContent(dto.getContent());

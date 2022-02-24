@@ -17,12 +17,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class LikesService {
 
     private final LikesRepository likesRepository;
     private final BoardRepository boardRepository;
 
+    @Transactional
     public BoardLikeCountResponseDto likeBoard(Long boardId, Account account) {
         Board findBoard = boardRepository.findById(boardId).orElseThrow(() -> new ApiRequestException("게시글이 존재하지 않습니다."));
         Likes likes= Likes.builder()
@@ -34,6 +34,7 @@ public class LikesService {
     }
 
     //이 부분은 개선이 필요함..board likeCount 부분이랑 이어지는 부분
+    @Transactional
     public BoardLikeCountResponseDto unLikeBoard(Long boardId, Long accountId) {
         Board findBoard = boardRepository.findById(boardId).orElseThrow(() -> new ApiRequestException("게시글이 존재하지 않습니다."));
         List<Likes> likeByAccountWithBoard = likesRepository.findLikeByAccountWithBoard(accountId, findBoard.getId())

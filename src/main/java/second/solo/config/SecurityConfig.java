@@ -41,13 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
-                .csrf().disable()
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                    .csrf().disable()
+                    .cors()
                 .and()
-                .headers()
-                    .frameOptions().disable()
+                    .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+                    .exceptionHandling()
+                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .and()
+//                    .headers()
+//                        .frameOptions().disable()
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
                 .and()
                     .sessionManagement()
