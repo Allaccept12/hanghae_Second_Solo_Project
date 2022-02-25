@@ -3,6 +3,9 @@ package second.solo.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import second.solo.advice.ApiRequestException;
@@ -26,9 +29,10 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional(readOnly = true)
-    public List<BoardAllResponseDto> allBoardSearch() {
-        List<Board> boardList = boardRepository.findAllBoard();
-        return boardList.stream()
+    public List<BoardAllResponseDto> allBoardSearch(Long lastBoardId) {
+        Pageable paging = PageRequest.of(0,5);
+        Page<Board> boardList = boardRepository.findAllBoard(lastBoardId,paging);
+        return boardList.getContent().stream()
                 .map(b -> BoardAllResponseDto.of(b,b.getLikeCount()))
                 .collect(Collectors.toList());
     }

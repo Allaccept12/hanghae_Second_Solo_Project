@@ -13,7 +13,8 @@ import second.solo.service.LikesService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/board/like")
-public class LikesController {
+public class
+LikesController {
 
     private final LikesService likeService;
 

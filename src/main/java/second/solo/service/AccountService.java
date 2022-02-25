@@ -33,8 +33,8 @@ public class AccountService {
         dto.encodedPassword(password);
         Account save = accountRepository.save(AccountRegisterRequestDto.toEntity(dto));
         return save.getId();
-
     }
+
     @Transactional
     public AccountLoginResponseDto login(AccountLoginRequestDto requestDto) {
         Account account = accountRepository.findByEmail(requestDto.getEmail())
@@ -63,5 +63,4 @@ public class AccountService {
             throw new ApiRequestException("비밀번호는 조건을 맞춰주세요"); // 비밀번호 맞지 않음
         }
     }
-
 }

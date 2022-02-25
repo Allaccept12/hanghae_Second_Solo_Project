@@ -1,13 +1,13 @@
 package second.solo.repository.board;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import second.solo.domain.Board;
-import second.solo.dto.response.BoardAllResponseDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BoardRepositoryCustom {
 
-    List<Board> findAllBoard();
+    Page<Board> findAllBoard(Long lastBoardId, Pageable paging);
 
 }

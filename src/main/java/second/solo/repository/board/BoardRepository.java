@@ -1,5 +1,6 @@
 package second.solo.repository.board;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import second.solo.domain.Board;
 

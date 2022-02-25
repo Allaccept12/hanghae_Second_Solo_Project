@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()// 로그인과 회원가입은 열어줌
-                    .antMatchers(HttpMethod.GET,"/api/board").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/board/**").permitAll()
                     .antMatchers("/api/login").permitAll()
                     .antMatchers("/api/register").permitAll()
                 .anyRequest().authenticated()

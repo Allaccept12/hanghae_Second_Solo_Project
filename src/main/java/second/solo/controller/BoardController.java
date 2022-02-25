@@ -21,9 +21,9 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping("")
-    public ResponseEntity<Success> allBoardSearch() {
-        return new ResponseEntity<>(new Success("전체 게시글 조회.",boardService.allBoardSearch()), HttpStatus.OK);
+    @GetMapping("/{lastBoardId}")
+    public ResponseEntity<Success> allBoardSearch(@PathVariable Long lastBoardId) {
+        return new ResponseEntity<>(new Success("전체 게시글 조회.",boardService.allBoardSearch(lastBoardId)), HttpStatus.OK);
     }
 
     @PostMapping("")
