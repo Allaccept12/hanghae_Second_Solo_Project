@@ -1,30 +1,21 @@
 package second.solo.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
 import second.solo.dto.request.BoardCreateRequestDto;
-import second.solo.dto.response.BoardAllResponseDto;
 import second.solo.repository.account.AccountRepository;
 import second.solo.repository.board.BoardRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -132,7 +123,7 @@ class BoardServiceTest {
         String beforeContent = findBoard.get().getContent();
         Optional<Account> boardOwner = accountRepository.findById(ownerId);
         //when
-        findBoard.get().updateContent("테스트 수정");
+        findBoard.get().updateContent("테스트 수정","asd","asd");
         Optional<Board> updatedBoard = boardRepository.findById(findBoardId);
         //then
         assertThat(updatedBoard.get().getAccount()).isEqualTo(boardOwner.get());
@@ -164,20 +155,20 @@ class BoardServiceTest {
     @org.junit.jupiter.api.Test
     public void 게시글_삭제() throws Exception {
         //given
-//        Optional<Account> client = accountRepository.findByEmail("ekdmd9092");
-//        BoardCreateRequestDto createDto = BoardCreateRequestDto.builder()
-//                .content("테스트 컨텐트")
-//                .img_url("http어쩌고")
-//                .board_status("0")
-//                .build();
-//        Board savedBoard = boardRepository.save(BoardCreateRequestDto.toEntity(createDto, client.get()));
-//        //when
-//        boardRepository.deleteById(savedBoard.getId());
-//        List<Board> allBoard = boardRepository.findAllBoard();
-//        //then
-//        assertThat(allBoard).doesNotContain(savedBoard);
-//        em.flush();
-//        em.clear();
+        Optional<Account> client = accountRepository.findByEmail("ekdmd9092");
+        BoardCreateRequestDto createDto = BoardCreateRequestDto.builder()
+                .content("테스트 컨텐트")
+                .img_url("http어쩌고")
+                .board_status("0")
+                .build();
+        Board savedBoard = boardRepository.save(BoardCreateRequestDto.toEntity(createDto, client.get()));
+        //when
+        boardRepository.deleteById(savedBoard.getId());
+        List<Board> allBoard = boardRepository.findAll();
+        //then
+        assertThat(allBoard).doesNotContain(savedBoard);
+        em.flush();
+        em.clear();
     }
 
 

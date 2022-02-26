@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BoardRepositoryCustom {
 
-    Page<Board> findAllBoard(Long lastBoardId, Pageable paging);
+    Page<Board> findByBoardAtLimit(Long lastBoardId, Pageable paging);
 
 }

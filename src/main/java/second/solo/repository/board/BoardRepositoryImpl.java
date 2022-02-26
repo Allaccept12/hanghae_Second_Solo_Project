@@ -20,7 +20,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
 
     @Override
-    public Page<Board> findAllBoard(Long lastBoardId, Pageable paging) {
+    public Page<Board> findByBoardAtLimit(Long lastBoardId, Pageable paging) {
         List<Board> result = queryFactory
                 .select(board)
                 .from(board)

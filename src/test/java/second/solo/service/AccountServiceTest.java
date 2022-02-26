@@ -1,37 +1,24 @@
 package second.solo.service;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import second.solo.advice.ApiRequestException;
 import second.solo.domain.Account;
 import second.solo.domain.Board;
 import second.solo.domain.Likes;
 import second.solo.dto.request.AccountLoginRequestDto;
 import second.solo.dto.request.AccountRegisterRequestDto;
-import second.solo.dto.response.AccountLoginResponseDto;
 import second.solo.jwt.JwtTokenProvider;
 import second.solo.repository.account.AccountRepository;
-import second.solo.repository.likes.LikesRepository;
 
 import javax.persistence.EntityManager;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-
 
 @SpringBootTest
 @Transactional

@@ -48,8 +48,10 @@ public class Board extends TimeStamped{
         this.boardStatus = boardStatus;
     }
 
-    public void updateContent(String content) {
+    public void updateContent(String content,String imgUrl, String boardStatus) {
         this.content = content;
+        this.imgUrl = imgUrl;
+        this.boardStatus = boardStatus;
     }
 
     public void upLikes() {

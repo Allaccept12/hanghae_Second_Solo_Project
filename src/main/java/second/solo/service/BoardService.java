@@ -29,9 +29,9 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional(readOnly = true)
-    public List<BoardAllResponseDto> allBoardSearch(Long lastBoardId) {
+    public List<BoardAllResponseDto> pagedBoardSearch(Long lastBoardId) {
         Pageable paging = PageRequest.of(0,5);
-        Page<Board> boardList = boardRepository.findAllBoard(lastBoardId,paging);
+        Page<Board> boardList = boardRepository.findByBoardAtLimit(lastBoardId,paging);
         return boardList.getContent().stream()
                 .map(b -> BoardAllResponseDto.of(b,b.getLikeCount()))
                 .collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class BoardService {
     @Transactional
     public Long updateBoard(Long boardId, Long accountId, BoardUpdateRequestDto dto) {
         Board findBoard = boardValidation(boardId, accountId);
-        findBoard.updateContent(dto.getContent());
+        findBoard.updateContent(dto.getContent(),dto.getImg_url(),dto.getBoard_status());
         return findBoard.getId();
     }
 
