@@ -19,18 +19,18 @@ public class AccountRegisterRequestDto {
     private String account_name;
 
     @Builder
-    public AccountRegisterRequestDto(String email, String password, String passwordCheck, String username) {
+    public AccountRegisterRequestDto(final String email, final String password, final String passwordCheck, final String username) {
         this.account_email = email;
         this.password = password;
         this.password_check = passwordCheck;
         this.account_name = username;
     }
 
-    public void encodedPassword(String password) {
+    public void encodedPassword(final String password) {
         this.password = password;
     }
 
-    public static Account toEntity(AccountRegisterRequestDto dto) {
+    public static Account toEntity(final AccountRegisterRequestDto dto) {
         return Account.builder()
                 .email(dto.getAccount_email())
                 .password(dto.getPassword())

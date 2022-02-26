@@ -16,13 +16,13 @@ public class BoardCreateRequestDto {
     private String board_status;
 
     @Builder
-    public BoardCreateRequestDto(String content,String img_url, String board_status) {
+    public BoardCreateRequestDto(final String content,final String img_url, final String board_status) {
         this.content = content;
         this.img_url = img_url;
         this.board_status = board_status;
     }
 
-    public static Board toEntity(BoardCreateRequestDto dto,Account account) {
+    public static Board toEntity(final BoardCreateRequestDto dto,final Account account) {
         return Board.builder()
                 .content(dto.getContent())
                 .account(account)

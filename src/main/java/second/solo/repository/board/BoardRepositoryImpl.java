@@ -10,8 +10,12 @@ import org.springframework.data.domain.Pageable;
 import second.solo.domain.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+import static second.solo.domain.QAccount.*;
 import static second.solo.domain.QBoard.*;
+import static second.solo.domain.QLikes.*;
 
 @RequiredArgsConstructor
 public class BoardRepositoryImpl implements BoardRepositoryCustom{
@@ -24,12 +28,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         List<Board> result = queryFactory
                 .select(board)
                 .from(board)
+                .join(board.account, account).fetchJoin()
                 .offset(paging.getOffset())
                 .limit(paging.getPageSize())
                 .where(isLastBoardId(lastBoardId))
                 .orderBy(board.id.desc())
                 .fetch();
         int count = result.size();
+
         return new PageImpl<>(result,paging,count);
     }
 

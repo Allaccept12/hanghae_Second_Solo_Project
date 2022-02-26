@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface LikesRepositoryCustom {
 
-    Optional<List<Likes>> findLikeByAccountWithBoard(Long accountId, Long boardId);
+    Optional<Likes> findLikeByAccountWithBoard(Long accountId, Long boardId);
 
 }

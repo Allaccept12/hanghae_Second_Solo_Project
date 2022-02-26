@@ -19,13 +19,11 @@ public class LikesRepositoryImpl implements LikesRepositoryCustom{
 
 
     @Override
-    public Optional<List<Likes>> findLikeByAccountWithBoard(Long accountId, Long boardId) {
-
+    public Optional<Likes> findLikeByAccountWithBoard(Long accountId, Long boardId) {
         return Optional.ofNullable(queryFactory
                 .selectFrom(likes)
-                .join(likes.account, account).on(likes.account.id.eq(accountId))
-                .join(likes.board, board).on(likes.board.id.eq(boardId))
-                .fetch());
-
+                .join(likes.account, account).on(likes.account.id.eq(accountId)).fetchJoin()
+                .join(likes.board, board).on(likes.board.id.eq(boardId)).fetchJoin()
+                .fetchOne());
     }
 }

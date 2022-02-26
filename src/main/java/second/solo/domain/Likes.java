@@ -30,10 +30,11 @@ public class Likes {
     public Likes(Account account, Board board) {
         this.account = account;
         this.board = board;
-        board.upLikes();
+        board.getLikeList().add(this);
+
     }
     public void deleteLike() {
-        this.board.downLikes();
+        board.getLikeList().remove(this);
     }
 
 

@@ -10,7 +10,7 @@ public class CreatedBoardIdDto {
 
     private Long board_id;
 
-    public CreatedBoardIdDto(Long board_id) {
+    public CreatedBoardIdDto(final Long board_id) {
         this.board_id = board_id;
     }
 }

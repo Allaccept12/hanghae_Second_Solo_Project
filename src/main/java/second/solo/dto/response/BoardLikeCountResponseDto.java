@@ -10,7 +10,7 @@ public class BoardLikeCountResponseDto {
 
     private int like;
 
-    public BoardLikeCountResponseDto(int like) {
+    public BoardLikeCountResponseDto(final int like) {
         this.like = like;
     }
 }

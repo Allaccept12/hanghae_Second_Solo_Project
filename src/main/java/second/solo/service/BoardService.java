@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import second.solo.advice.ApiRequestException;
 import second.solo.domain.Account;
 import second.solo.domain.Board;
+import second.solo.domain.Likes;
 import second.solo.dto.request.BoardCreateRequestDto;
 import second.solo.dto.request.BoardUpdateRequestDto;
 import second.solo.dto.response.BoardAllResponseDto;
 import second.solo.dto.response.CreatedBoardIdDto;
 import second.solo.repository.account.AccountRepository;
 import second.solo.repository.board.BoardRepository;
+import second.solo.repository.likes.LikesRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,13 +29,14 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final LikesRepository likesRepository;
 
     @Transactional(readOnly = true)
     public List<BoardAllResponseDto> pagedBoardSearch(Long lastBoardId) {
         Pageable paging = PageRequest.of(0,5);
         Page<Board> boardList = boardRepository.findByBoardAtLimit(lastBoardId,paging);
         return boardList.getContent().stream()
-                .map(b -> BoardAllResponseDto.of(b,b.getLikeCount()))
+                .map(BoardAllResponseDto::from)
                 .collect(Collectors.toList());
     }
     @Transactional
@@ -43,6 +46,8 @@ public class BoardService {
 
     @Transactional
     public void deleteBoard(Long boardId, Long accountId) {
+        List<Likes> byBoardId = likesRepository.findByBoardId(boardId);
+        likesRepository.deleteAll(byBoardId);
         boardRepository.delete(boardValidation(boardId, accountId));
     }
 

@@ -10,6 +10,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,14 +32,13 @@ public class Board extends TimeStamped{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @Column(columnDefinition = "integer default 0")
-    private int likeCount;
+    @OneToMany(mappedBy = "board",cascade = CascadeType.REMOVE)
+    private final List<Likes> likeList = new ArrayList<>();
 
     @Lob
     private String imgUrl;
 
     private String boardStatus;
-
 
 
     @Builder
@@ -52,12 +53,5 @@ public class Board extends TimeStamped{
         this.content = content;
         this.imgUrl = imgUrl;
         this.boardStatus = boardStatus;
-    }
-
-    public void upLikes() {
-        this.likeCount += 1;
-    }
-    public void downLikes() {
-        this.likeCount -= 1;
     }
 }

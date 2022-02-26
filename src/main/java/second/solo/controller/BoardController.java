@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import second.solo.advice.ApiRequestException;
 import second.solo.advice.Success;
 import second.solo.dto.request.BoardCreateRequestDto;
 import second.solo.dto.request.BoardUpdateRequestDto;
@@ -23,6 +24,7 @@ public class BoardController {
 
     @GetMapping("/{lastBoardId}")
     public ResponseEntity<Success> pagedBoardSearch(@PathVariable Long lastBoardId) {
+
         return new ResponseEntity<>(new Success("전체 게시글 조회.",boardService.pagedBoardSearch(lastBoardId)), HttpStatus.OK);
     }
 

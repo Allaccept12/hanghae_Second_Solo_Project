@@ -14,7 +14,7 @@ public class AccountLikesBoardListDto {
 
     private Long likes_id;
 
-    public AccountLikesBoardListDto(Likes likes_id) {
-        this.likes_id = likes_id.getId();
+    public AccountLikesBoardListDto(final Likes likes) {
+        this.likes_id = likes.getBoard().getId();
     }
 }

@@ -73,8 +73,9 @@ class LikesRepositoryImplTest {
         findLike.deleteLike();
         likesRepository.deleteById(findLike.getId());
         //then
-        assertThat(savedBoard.getLikeCount()).isEqualTo(0);
+        assertThat(savedBoard.getLikeList().size()).isEqualTo(0);
     }
 
 
 }
+

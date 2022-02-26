@@ -16,7 +16,7 @@ public class AccountLoginRequestDto {
     private String password;
 
     @Builder
-    public AccountLoginRequestDto(String email, String password) {
+    public AccountLoginRequestDto(final String email, final String password) {
         this.email = email;
         this.password = password;
     }

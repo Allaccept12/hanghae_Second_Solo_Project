@@ -39,34 +39,6 @@ class LikesServiceTest {
     @Autowired
     EntityManager em;
 
-    @BeforeEach
-    public void beforeEach() {
-        Account account = Account.builder()
-                .email("ekdmd9092")
-                .password("1234")
-                .username("다응짱")
-                .build();
-        accountRepository.save(account);
-
-        Board board = Board.builder()
-                .account(account)
-                .content("테스트 테스트1")
-                .build();
-        Board board2 = Board.builder()
-                .account(account)
-                .content("테스트 테스트2")
-                .build();
-        Board board3 = Board.builder()
-                .account(account)
-                .content("테스트 테스트3")
-                .build();
-
-        em.persist(board);
-        em.persist(board2);
-        em.persist(board3);
-        em.flush();
-        em.clear();
-    }
     @org.junit.jupiter.api.AfterEach
     public void downSet() {
         accountRepository.deleteAll();
@@ -101,7 +73,7 @@ class LikesServiceTest {
         //then
         assertThat(like.getAccount().getId()).isEqualTo(findBoard.get().getAccount().getId());
         assertThat(like.getBoard().getId()).isEqualTo(findBoard.get().getId());
-        assertThat(like.getBoard().getLikeCount()).isEqualTo(findBoard.get().getLikeCount());
+        assertThat(like.getBoard().getLikeList().size()).isEqualTo(findBoard.get().getLikeList().size());
         em.flush();
         em.clear();
     }
@@ -109,6 +81,12 @@ class LikesServiceTest {
     @Test
     public void 게시글_좋아요_해지() throws Exception {
         //given
+        Account newAccount = Account.builder()
+                .email("ekdmd9092")
+                .password("1234")
+                .username("다응짱")
+                .build();
+        accountRepository.save(newAccount);
         Optional<Account> findAccount = accountRepository.findByEmail("ekdmd9092");
         Board board = Board.builder()
                 .account(findAccount.get())
@@ -125,10 +103,10 @@ class LikesServiceTest {
         em.flush();
         em.clear();
 
-        Optional<List<Likes>> likeByAccountWithBoard = likesRepository.findLikeByAccountWithBoard(findAccount.get().getId(), findBoard.get().getId());
+        Optional<Likes> likeByAccountWithBoard = likesRepository.findLikeByAccountWithBoard(findAccount.get().getId(), findBoard.get().getId());
         //when
-        likeByAccountWithBoard.get().get(0).deleteLike();
-        likesRepository.deleteById(likeByAccountWithBoard.get().get(0).getId());
+        likeByAccountWithBoard.get().deleteLike();
+        likesRepository.deleteById(likeByAccountWithBoard.get().getId());
         Optional<Likes> likes = likesRepository.findById(1L);
         //then
         assertThat(likes).isEqualTo(Optional.empty());
