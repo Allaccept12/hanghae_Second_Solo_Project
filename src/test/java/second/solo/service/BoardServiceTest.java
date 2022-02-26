@@ -136,7 +136,7 @@ class BoardServiceTest {
                 .username("다응짱1")
                 .build();
         accountRepository.save(account);
-        Optional<Account> client = accountRepository.findByEmail("ekdmd9092");
+        Optional<Account> client = accountRepository.findByEmail("ekdmd90921");
         BoardCreateRequestDto createDto = BoardCreateRequestDto.builder()
                 .content("테스트 컨텐트")
                 .img_url("http어쩌고")
@@ -162,7 +162,7 @@ class BoardServiceTest {
                 .username("다응짱1")
                 .build();
         accountRepository.save(account);
-        Optional<Account> client = accountRepository.findByEmail("ekdmd9092");
+        Optional<Account> client = accountRepository.findByEmail("ekdmd90921");
         BoardCreateRequestDto createDto = BoardCreateRequestDto.builder()
                 .content("테스트 컨텐트")
                 .img_url("http어쩌고")
