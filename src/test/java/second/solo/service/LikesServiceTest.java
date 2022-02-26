@@ -60,9 +60,11 @@ class LikesServiceTest {
                 .account(account.get())
                 .content("테스트 테스트1")
                 .build();
+
         Board saveBoard = boardRepository.save(board);
         em.flush();
         em.clear();
+
         //when
         Optional<Board> findBoard = boardRepository.findById(saveBoard.getId());
         Likes likes= Likes.builder()
