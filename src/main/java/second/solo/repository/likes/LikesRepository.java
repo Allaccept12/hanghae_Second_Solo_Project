@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface LikesRepository extends JpaRepository<Likes, Long>,LikesRepositoryCustom {
 
-
-    Optional<Likes> findByAccount(Account accountId);
+    @Query("select l from Likes l where l.account.id = :accountId and l.board.id = :boardId")
+    Optional<Likes> findByAccount(@Param("accountId") Long accountId, @Param("boardId") Long boardId);
 
     @Query("select i from Likes i where i.board.id = :boardId")
     List<Likes> findByBoardId(@Param("boardId") Long boardId);

@@ -86,7 +86,7 @@ class BoardServiceTest {
         //when
         Pageable paging = PageRequest.of(0,5);
         Page<Board> boardList = boardRepository.findByBoardAtLimit(3L,paging);
-        List<BoardAllResponseDto> findBoard = boardList.stream()
+        List<BoardAllResponseDto> findBoard = boardList.getContent().stream()
                 .map(BoardAllResponseDto::from)
                 .collect(Collectors.toList());
         //then

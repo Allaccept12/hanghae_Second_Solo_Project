@@ -24,7 +24,7 @@ public class LikesService {
 
     @Transactional
     public BoardLikeCountResponseDto likeBoard(Long boardId, Account account) {
-        if (likesRepository.findByAccount(account).isPresent()) {
+        if (likesRepository.findByAccount(account.getId(),boardId).isPresent()) {
             throw new ApiRequestException("이미 좋아요 누른 게시글 입니다.");
         }
         Board findBoard = boardRepository.findById(boardId).orElseThrow(() -> new ApiRequestException("게시글이 존재하지 않습니다."));
