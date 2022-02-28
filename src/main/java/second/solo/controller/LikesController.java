@@ -8,7 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import second.solo.advice.Success;
 import second.solo.jwt.UserDetailsImpl;
-import second.solo.service.LikesService;
+import second.solo.service.LikesServiceImpl;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ import second.solo.service.LikesService;
 public class
 LikesController {
 
-    private final LikesService likeService;
+    private final LikesServiceImpl likeService;
 
 
     @PostMapping("/{boardId}")

@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling()
-                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
 //                .and()
 //                    .headers()
 //                        .frameOptions().disable()
