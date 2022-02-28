@@ -12,7 +12,7 @@ import second.solo.advice.Success;
 import second.solo.dto.request.AccountLoginRequestDto;
 import second.solo.dto.request.AccountRegisterRequestDto;
 import second.solo.jwt.UserDetailsImpl;
-import second.solo.service.AccountService;
+import second.solo.service.AccountServiceImpl;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ import second.solo.service.AccountService;
 @Slf4j
 public class AccountController {
 
-    private final AccountService accountService;
+    private final AccountServiceImpl accountServiceImpl;
 
 
     @PostMapping("/login")
@@ -30,7 +30,7 @@ public class AccountController {
             throw new ApiRequestException("이미 로그인 되어있습니다.");
         }
         return new ResponseEntity<>(new Success<>(
-                "로그인 성공", accountService.login(requestDto)), HttpStatus.OK);
+                "로그인 성공", accountServiceImpl.login(requestDto)), HttpStatus.OK);
     }
 
     @PostMapping("/register")
@@ -40,7 +40,7 @@ public class AccountController {
             throw new ApiRequestException("이미 로그인 되어있습니다.");
         }
         return new ResponseEntity<>(new Success<>(
-                "회원가입 성공", accountService.registerAccount(requestDto)), HttpStatus.OK);
+                "회원가입 성공", accountServiceImpl.registerAccount(requestDto)), HttpStatus.OK);
     }
 
 

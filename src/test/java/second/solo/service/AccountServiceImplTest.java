@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class AccountServiceTest {
+class AccountServiceImplTest {
 
     @Autowired
     AccountRepository accountRepository;
