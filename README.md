@@ -12,6 +12,7 @@
 - Spring Security 
 - Gradle
 - JPA
+- Spring Data Jpa
 - QueryDSL - 안써도 되지만 연습
 - MySQL 8.0
 
