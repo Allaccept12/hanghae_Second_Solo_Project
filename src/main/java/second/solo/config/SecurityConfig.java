@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -47,9 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                     .exceptionHandling()
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                .and()
-//                    .headers()
-//                        .frameOptions().disable()
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
                 .and()
                     .sessionManagement()
