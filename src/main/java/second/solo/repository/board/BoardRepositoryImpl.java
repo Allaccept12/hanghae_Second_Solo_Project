@@ -22,7 +22,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
 
-
     @Override
     public Page<Board> findByBoardAtLimit(Long lastBoardId, Pageable paging) {
         List<Board> result = queryFactory

@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import second.solo.Util.AccountValidator;
+import second.solo.util.AccountValidator;
 import second.solo.advice.ApiRequestException;
 import second.solo.domain.Account;
 import second.solo.dto.request.AccountRegisterRequestDto;
@@ -28,9 +28,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Long registerAccount(AccountRegisterRequestDto dto) {
         Account account = accountRepository.findByEmail(dto.getAccount_email()).orElse(null);
-
         AccountValidator.registerValidation(dto,account);
-
         String password = passwordEncoder.encode(dto.getPassword());
         dto.encodedPassword(password);
         Account save = accountRepository.save(AccountRegisterRequestDto.toEntity(dto));
@@ -42,9 +40,7 @@ public class AccountServiceImpl implements AccountService{
     public AccountLoginResponseDto login(AccountLoginRequestDto requestDto) {
         Account account = accountRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new ApiRequestException("가입되지 않은 유저입니다."));
-
         AccountValidator.loginValidation(passwordEncoder,requestDto.getPassword(),account.getPassword());
-
         String token = jwtTokenProvider.createToken(Long.toString(account.getId()), account.getEmail(), account.getUsername());
         AccountLoginResponseDto dto = accountRepository.login(requestDto);
         dto.tokenSet(token);

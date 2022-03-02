@@ -1,12 +1,9 @@
-package second.solo.Util;
+package second.solo.util;
 
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import second.solo.advice.ApiRequestException;
 import second.solo.domain.Account;
-import second.solo.dto.request.AccountLoginRequestDto;
 import second.solo.dto.request.AccountRegisterRequestDto;
 
 import java.util.regex.Pattern;
