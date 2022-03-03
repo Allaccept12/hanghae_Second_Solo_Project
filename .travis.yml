@@ -4,13 +4,16 @@ jdk:
 
 branches:
   only:
-    - master
+    - main
 
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 script: "./gradlew clean build"
+
+before_install:
+  - chmod + x gradlew
 
 notifications:
   email:
