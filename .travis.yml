@@ -16,7 +16,7 @@ before_install:
   - chmod +x gradlew
 
 before_deploy:
-  - zip -r jay-megazine-webservice
+  - zip -r jay-megazine-webservice *
   - mkdir -p deploy
   - mv jay-megazine-webservice.zip deploy/jay-megazine-webservice.zip
 
@@ -30,7 +30,7 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deployed: true
-    on: 
+    on:
       all_branches: true
 
 notifications:
