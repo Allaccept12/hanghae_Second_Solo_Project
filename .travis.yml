@@ -15,7 +15,34 @@ script: "./gradlew clean build"
 before_install:
   - chmod +x gradlew
 
+before_deploy:
+  - zip -r jay-megazine-webservice
+  - mkdir -p deploy
+  - mv jay-megazine-webservice.zip deploy/jay-megazine-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: jay-megazine-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
 notifications:
   email:
     recipients:
       ekdmd9092@naver.com
+
+
+
+
+
+
+
+
+
