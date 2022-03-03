@@ -4,7 +4,7 @@ jdk:
 
 branches:
   only:
-    - main
+    - master
 
 cache:
   directories:
@@ -16,4 +16,3 @@ notifications:
   email:
     recipients:
       ekdmd9092@naver.com
-    
