@@ -14,6 +14,7 @@ public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
+        //코스 설정
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
